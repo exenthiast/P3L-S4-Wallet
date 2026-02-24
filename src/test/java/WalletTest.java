@@ -1,4 +1,5 @@
 import org.example.Wallet;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -8,6 +9,7 @@ public class WalletTest {
 
     @BeforeEach
     void setup() {
+        System.out.println("BeforeEach berhasil dijalankan");
         wallet = new Wallet();
         wallet.setOwner("Alfiz");
     }
@@ -41,6 +43,11 @@ public class WalletTest {
         wallet.addMoney(25000);
 
         assertEquals(75000, wallet.getTotalMoney());
+    }
+
+    @AfterEach
+    void teardown() {
+        System.out.println("AfterEach berhasil dijalankan");
     }
 
     @Test
