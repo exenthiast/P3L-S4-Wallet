@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Wallet {
-    private String owner;
+    private Owner owner;
     private List<String> cards;
     private int totalMoney;
 
@@ -13,11 +13,11 @@ public class Wallet {
     }
 
     // set & get owner
-    public void setOwner(String owner) {
+    public void setOwner(Owner owner) {
         this.owner = owner;
     }
 
-    public String getOwner() {
+    public Owner getOwner() {
         return owner;
     }
 
@@ -39,18 +39,29 @@ public class Wallet {
     }
 
     // uang
-    public void addMoney(int amount) {
-        if (amount > 0) {
-            totalMoney += amount;
+    public void deposit(int amount) {
+        if (amount <= 0) {
+            throw new IllegalArgumentException("Invalid amount");
         }
+        totalMoney += amount;
     }
 
-    public boolean takeMoney(int amount) {
-        if (amount > 0 && totalMoney >= amount) {
-            totalMoney -= amount;
-            return true;
+    public boolean withdraw(int amount) {
+        if (amount <= 0) {
+            throw new IllegalArgumentException("Invalid Amount");
         }
-        return false;
+        if (amount > totalMoney) {
+            throw new InsufficientFundsException();
+        }
+        totalMoney -= amount;
+        return true;
+    }
+
+    public boolean validBalance(int amount) {
+        if (amount < 0) {
+            return false;
+        }
+        return true;
     }
 
     public int getTotalMoney() {
